@@ -171,3 +171,38 @@ for i in range(4):
     plt.axis("off")
 plt.tight_layout()
 plt.show()
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
+import requests
+from io import BytesIO
+
+# Download the CIFAR-10 dataset image
+image_url = "https://storage.googleapis.com/tf-datasets/tfds/data/cifar10_test/1.0.0/cifar10_test-00032-of-00032.gz"
+response = requests.get(image_url)
+image = Image.open(BytesIO(response.content))
+
+# Convert the image to NumPy array
+image_array = np.array(image)
+
+# Display the original image
+plt.figure(figsize=(4, 4))
+plt.imshow(image_array)
+plt.axis('off')
+plt.title("Original Image")
+plt.show()
+
+# Create a mask with the region to be inpainted
+mask = np.zeros(image_array.shape[:2], dtype=np.uint8)
+mask[100:300, 200:400] = 255  # Example region to be inpainted
+
+# Inpainting logic goes here
+
+# Display the inpainted image
+plt.figure(figsize=(4, 4))
+plt.imshow(image_array)
+plt.axis('off')
+plt.title("Inpainted Image")
+plt.show()
